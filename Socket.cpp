@@ -1,14 +1,14 @@
 #include "Socket.hpp"
 
-Socket::Socket(int domain, int service, int protocol, int port, u_long interface)
+Socket::Socket(int domain, int service, int protocol, u_long interface, int port)
 {
     address.sin_family= domain;
     address.sin_port = htons(port);
     address.sin_addr.s_addr = htonl(interface);
   sock = socket(domain, service, protocol);
   test_conn(sock);
-  conn = establish_network(sock, address);
-  test_conn(conn);
+//   conn = establish_network(sock, address);
+//   test_conn(conn);
 };
 
 void Socket::test_conn(int item_to_test)
@@ -20,16 +20,21 @@ void Socket::test_conn(int item_to_test)
     }
     
 }
-int Socket::getconn()
-{
-    return(sock);
-};
-
-int Socket::getsock()
+int Socket::get_conn()
 {
     return(conn);
+};
+
+int Socket::get_sock()
+{
+    return(sock);
 };
 struct sockaddr_in Socket::getsockaddr_in_address()
 {
     return(address);
+};
+
+void Socket::set_conn(int conn)
+{
+    conn = conn;
 };
