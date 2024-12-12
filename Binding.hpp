@@ -1,6 +1,6 @@
 #pragma once
 #include "Socket.hpp"
-
+ 
 class Binding : public Socket
 {
     public:

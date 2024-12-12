@@ -13,4 +13,4 @@ class Server
         virtual void launch() = 0;
         Listen * get_socket();
 
-};
+}; 

@@ -21,7 +21,7 @@ void Socket::test_conn(int item_to_test)
     
 }
 int Socket::get_conn()
-{
+{ 
     return(conn);
 };
 

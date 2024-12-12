@@ -23,7 +23,7 @@ void TestServer::accepter()
 
 void TestServer::handler()
 {
-    std::cout << buffer<< std::endl;
+    std::cout << buffer<< std::endl; 
 }
 
 // void TestServer::responder()

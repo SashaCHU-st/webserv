@@ -18,4 +18,4 @@ class Socket
         virtual int establish_network(int sock, struct sockaddr_in address) = 0;
         void test_conn(int);
         void set_conn(int conn);
-};
+}; 

@@ -1,5 +1,5 @@
 #include "Binding.hpp"
-//conctr
+//conctr 
 Binding::Binding(int domain, int service, int protocol, u_long interface, int port)
     : Socket(domain, service, protocol, interface, port) {
     set_conn(establish_network(get_sock(), get_address()));

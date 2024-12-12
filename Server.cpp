@@ -12,4 +12,4 @@ Server::Server(int domain, int service, int protocol, int port,  u_long interfac
 Listen * Server::get_socket()
 {
     return socket;
-}
+} 

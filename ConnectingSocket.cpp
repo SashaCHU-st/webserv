@@ -11,4 +11,4 @@ int ConnectingSocket::establish_network(int sock, struct sockaddr_in address)
 {
     return connect(sock, (struct sockaddr *)&address, sizeof(address));
     // casting address to a strcut * and making it a pointer
-};
+};  
