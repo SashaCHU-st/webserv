@@ -6,6 +6,6 @@ class Listen:public Binding
         int backlog;
         int listening;
     public:
-        Listen(int domain, int service, int pprotocol, int por, u_long interface, int backlog);
+        Listen(int domain, int type, int protocol, int port, u_long interface, int backlog);
         void start_listen();
 };   

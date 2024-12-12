@@ -1,25 +1,29 @@
 #include "Socket.hpp"
 
-Socket::Socket(int domain, int service, int protocol, u_long interface, int port)
+Socket::Socket(int domain, int type, int protocol, u_long interface, int port)
 {
-    address.sin_family= domain;
-    address.sin_port = htons(port);
-    address.sin_addr.s_addr = htonl(interface);
-  sock = socket(domain, service, protocol);
-  test_conn(sock);
-//   conn = establish_network(sock, address);
-//   test_conn(conn);
-};
-
-void Socket::test_conn(int item_to_test)
-{
-    if(item_to_test < 0)
+    address.sin_family= domain;// AF_INET
+    address.sin_port = htons(port);// 8080
+    address.sin_addr.s_addr = htonl(interface);//INADDR_ANY 0.0.0.0
+    sock = socket(domain,type, protocol);// AF_INET, SOCK_STREAM, 0 ( 0 default based on type if SOCK_STREAM => TCP)
+                                        //SOK_DGRAM =>UDP
+    if(sock < 0)
     {
         perror("failed");
         exit(EXIT_FAILURE);
     }
+    //test_conn(sock);
+};
+
+// void Socket::test_conn(int item_to_test)
+// {
+//     if(item_to_test < 0)
+//     {
+//         perror("failed");
+//         exit(EXIT_FAILURE);
+//     }
     
-}
+// }
 int Socket::get_conn()
 { 
     return(conn);

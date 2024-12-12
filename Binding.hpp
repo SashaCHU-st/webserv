@@ -4,6 +4,6 @@
 class Binding : public Socket
 {
     public:
-        Binding(int domain, int service, int protocol, u_long interface, int port);
+        Binding(int domain, int type, int protocol, u_long interface, int port);
         int establish_network(int sock, struct sockaddr_in address);
 };
