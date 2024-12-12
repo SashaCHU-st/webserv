@@ -3,7 +3,7 @@
 //conctr
 ConnectingSocket::ConnectingSocket(int domain, int service, int protocol, u_long interface, int port, int backlog)
     : Socket(domain, service, protocol, interface, port) {
-    set_conn(establish_network(get_sock(), getsockaddr_in_address()));
+    set_conn(establish_network(get_sock(), get_address()));
     test_conn(get_conn());
 }
 //implement of conn

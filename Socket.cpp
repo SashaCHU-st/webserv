@@ -29,7 +29,7 @@ int Socket::get_sock()
 {
     return(sock);
 };
-struct sockaddr_in Socket::getsockaddr_in_address()
+struct sockaddr_in Socket::get_address()
 {
     return(address);
 };
