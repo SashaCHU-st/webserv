@@ -11,11 +11,13 @@ class Socket
         int conn;
         struct sockaddr_in address;
     public:
-        Socket(int domain, int service, int protocol,u_long interface, int port);
-        int get_conn();
+        // constructors
+        Socket(int domain, int type, int protocol,u_long interface, int port);
+        //getters
         struct sockaddr_in get_address();
         int get_sock();
-        virtual int establish_network(int sock, struct sockaddr_in address) = 0;
-        void test_conn(int);
+        int get_conn();
+
+        //setters
         void set_conn(int conn);
 }; 

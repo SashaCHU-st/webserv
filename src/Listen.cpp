@@ -1,18 +1,18 @@
 #include "Listen.hpp"
 
-Listen::Listen(int domain, int service, int protocol, int port, u_long interface, int backlog) 
-: Binding(domain, service, protocol, interface, port)
+Listen::Listen(int domain, int type, int protocol, int port, u_long interface, int backlog) 
+: Binding_from_server(domain, type, protocol, interface, port)
 {
-    backlog = backlog;
-    start_listen();
-    std::cout << "3" <<std::endl;
-    test_conn(listening);
+    backlog = get_backlog();
+    listening = listen(get_sock(), backlog);
+    if(listening < 0)
+    {
+        perror("failed");
+        exit(EXIT_FAILURE);
+    }
 }; 
 
-void Listen::start_listen()
+int Listen::get_backlog()
 {
-    std::cout << "1" <<std::endl;
-    std::cout << get_conn() <<std::endl;
-    listening =  listen(get_sock(), backlog );
-    std::cout << "2" <<std::endl;
-} 
+    return backlog;
+}

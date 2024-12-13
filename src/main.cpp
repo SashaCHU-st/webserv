@@ -1,9 +1,42 @@
-// #include "one_big_lib.hpp"
-// int main ()
+// #include "Webserv.hpp"
+// int main(int argc, char **argv)
+// { 
+//     (void)argv;
+//     try{
+//         if(argc != 2)
+//             std::cout << "Accepting only one file config"<<std::endl;
+
+//     }
+//     catch(std::exception& e)
+//     {
+//         std::cout << e.what() << std::endl;
+//         return 1;
+//     }
+//     return 0;
+// }
+
+#include "Launching.hpp"
+
+// int main()
 // {
-//     std::cout << "BINGDING" << std::endl;
-//     Binding bs(AF_INET, SOCK_STREAM, 0 , 81, INADDR_ANY);
-//     std::cout << "LISTENING" << std::endl;
-//     Listen ls(AF_INET, SOCK_STREAM, 0 , 80, INADDR_ANY, 10);
-//     std::cout << "All goood" << std::endl;
-// } 
+// }
+
+
+// #include "Webserv.hpp"
+int main(int argc, char **argv)
+{ 
+    (void)argv;
+    (void) argc;
+    try{
+        // if(argc != 2)
+        //     std::cout << "Accepting only one file config"<<std::endl;
+    Launching webserv;
+
+    }
+    catch(std::exception& e)
+    {
+        std::cout << e.what() << std::endl;
+        return 1;
+    }
+    return 0;
+}
