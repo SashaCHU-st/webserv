@@ -2,7 +2,7 @@
 #include "Server.hpp"
 #include <string.h>
 
-class TestServer: public Server
+class Launching: public Server
 {
     private:
         char buffer[30000] = {0};
@@ -11,6 +11,6 @@ class TestServer: public Server
         void handler();
         void responder();
     public:
-        TestServer();
+        Launching();
         void launch();
 }; 

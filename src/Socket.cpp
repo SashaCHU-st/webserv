@@ -12,18 +12,8 @@ Socket::Socket(int domain, int type, int protocol, u_long interface, int port)
         perror("failed");
         exit(EXIT_FAILURE);
     }
-    //test_conn(sock);
 };
 
-// void Socket::test_conn(int item_to_test)
-// {
-//     if(item_to_test < 0)
-//     {
-//         perror("failed");
-//         exit(EXIT_FAILURE);
-//     }
-    
-// }
 int Socket::get_conn()
 { 
     return(conn);
@@ -40,5 +30,5 @@ struct sockaddr_in Socket::get_address()
 
 void Socket::set_conn(int conn)
 {
-    conn = conn;
+    this->conn = conn;
 };
