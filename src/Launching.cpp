@@ -1,6 +1,7 @@
 #include "Launching.hpp"
 
-Launching::Launching() : Server(AF_INET, SOCK_STREAM, 0, 8080, INADDR_ANY, 32)
+Launching::Launching() : Server(AF_INET, SOCK_STREAM, 0, 8080, INADDR_ANY, 32)// posrt starts from 1024
+// since  from 0 -1023 is privvege one
 {
     launch();
 }
@@ -25,7 +26,15 @@ void Launching::handler()
 
 void Launching::responder()
 {
-    std::string body = "<h1>Hello, Worssd!</h1>";
+    std::string body;
+    std::ifstream file("index.html");
+    if (file.is_open())
+    {
+        std::ostringstream ss;
+        ss << file.rdbuf();
+        body = ss.str();
+        file.close();
+    }
     std::string http_response = 
         "HTTP/1.1 200 OK\r\n"
         "Content-Type: text/html\r\n"
@@ -40,7 +49,7 @@ void Launching::launch()
 {
     while (true)
     {
-        std::cout<<"Let;s start"<<std::endl;
+        std::cout<<"Let's start"<<std::endl;
         accepter();
         handler();
         responder();
