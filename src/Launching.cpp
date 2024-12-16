@@ -1,6 +1,6 @@
 #include "Launching.hpp"
 
-Launching::Launching() : Server(AF_INET, SOCK_STREAM, 0, 8080, INADDR_ANY, 32)// posrt starts from 1024
+Launching::Launching() : Server(AF_INET, SOCK_STREAM, 0, 8081, INADDR_ANY, 32)// posrt starts from 1024
 // since  from 0 -1023 is privvege one
 {
     launch();
@@ -15,6 +15,7 @@ void Launching::accepter()
         perror("failed");
         exit(EXIT_FAILURE);
     }
+
     read(new_socket, buffer, 30000);
 }
 
@@ -51,7 +52,7 @@ void Launching::launch()
     {
         std::cout<<"Let's start"<<std::endl;
         accepter();
-        handler();
+        handler();    
         responder();
         std::cout<<"all goood"<<std::endl;
     }

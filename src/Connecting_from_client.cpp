@@ -7,6 +7,7 @@ Connecting_from_client::Connecting_from_client(int domain, int type, int protoco
     : Socket(domain, type, protocol, interface, port)
     {
     struct sockaddr_in address = get_address();
+    std::cout<<"EEEEEEEEEEEEEEEEEEEEEE"<<std::endl;
     int connection = connect(get_sock(), (struct sockaddr *)&address, sizeof(address));
     if(connection < 0)
      {

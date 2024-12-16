@@ -4,7 +4,9 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <poll.h>
 #include <unistd.h>
+#include <vector>
 
 class Launching: public Server
 {
@@ -14,7 +16,9 @@ class Launching: public Server
         void accepter();
         void handler();
         void responder();
+        std::vector<pollfd> fds;// for dinamicaly array of fd's
     public:
         Launching();
         void launch();
+        int get_ret();
 }; 

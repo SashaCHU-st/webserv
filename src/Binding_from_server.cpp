@@ -5,6 +5,7 @@ Binding_from_server::Binding_from_server(int domain, int type, int protocol, u_l
     : Socket(domain, type, protocol, interface, port) {
     struct sockaddr_in address = get_address();
     int binding_from_server = bind(get_sock(), (struct sockaddr *)&address, sizeof(address));
+    std::cout<<"QQQQQQQQQQQ"<<std::endl;
     if(binding_from_server)
     {
         perror("failed");
