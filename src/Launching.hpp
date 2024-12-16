@@ -1,6 +1,13 @@
 #pragma once
 #include "Server.hpp"
+#include <fstream>
+#include <sstream>
+#include <iostream>
+#include <unistd.h>
 #include <string.h>
+#include <netinet/in.h>
+#include <fcntl.h>
+
 
 class Launching: public Server
 {
