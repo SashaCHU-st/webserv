@@ -1,12 +1,11 @@
 #include "Server.hpp"
-#include "Listen.hpp"
 
-Server::Server(int domain, int type, int protocol, int port,  u_long interface, int backlog )
+Server::Server(int domain, int type, int protocol, int port, u_long interface, int backlog)
 {
-    socket = new Listen(domain, type, protocol, port, interface, backlog);
-};
+    sock = new Socket(domain, type, protocol, interface, port, backlog);
+}
 
-Listen * Server::get_socket()
+Socket* Server::get_sock()
 {
-    return socket;
-} 
+    return (sock);
+}

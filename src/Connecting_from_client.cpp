@@ -1,3 +1,4 @@
+/// not yet ready for now!!!!!
 ///Function to conncet. From Client to server. Takes fd from socket, pointer to struct containing
 // IP address to BIND soket to, adrlen => the size of adress structure
 #include "Connecting_from_client.hpp"
