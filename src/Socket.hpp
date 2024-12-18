@@ -19,13 +19,14 @@ private:
     int type;
     int protocol;
     int backlog;
-    std::vector<struct pollfd> *fds;/// for dinamcalyy fds
+    // std::vector<struct pollfd> *fds;/// for dinamcalyy fds
 
 public:
     // consctructors
     Socket(int domain, int type, int protocol, u_long interface, int port, int backlog);
 
-
+    //desctruc
+    ~Socket();
     //getters
     struct sockaddr_in get_address();
     int get_sock();
@@ -39,5 +40,5 @@ public:
     void socketing();
     void binding();
     void listening();
-    void run(std::vector<pollfd> &fds);
+    void run();
 };

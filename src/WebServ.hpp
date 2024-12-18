@@ -8,14 +8,15 @@
 class WebServ : public Server
 {
 private:
-    int new_socket;          // Socket for the accepted client connection
-    char buffer[30000];      // Buffer to store client request
-//       std::vector<pollfd> fds;// for dinamicaly array of fd's
+    int _new_socket;
+ // char buffer[30000];
+//  std::vector<pollfd> fds;// for dinamicaly array of fd's
+    std::vector<struct pollfd> fds;/// for dinamcalyy fds
 
 public:
-    WebServ();
+     WebServ(int domain, int type, int protocol, int port, u_long interface, int backlog);
     void accepter();
-    void handler();
     void responder();
-    void launch();           
+    void launch();
+    std::vector<pollfd> *get_fds();
 };
