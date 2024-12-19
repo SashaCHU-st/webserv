@@ -7,7 +7,7 @@ int main(int argc, char **argv)
     try{
         // if(argc != 2)
         //     std::cout << "Accepting only one file config"<<std::endl;
-        WebServ webserv(AF_INET, SOCK_STREAM,0 , 8083, INADDR_ANY, 32);
+        WebServ webserv(AF_INET, SOCK_STREAM,0 , 8084, INADDR_ANY, 32);
         
         webserv.launch();
 

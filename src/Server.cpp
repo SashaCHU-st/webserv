@@ -8,6 +8,7 @@ Server::~Server()
 {
     delete sock;
 }
+
 Socket* Server::get_sock()
 {
     return (sock);

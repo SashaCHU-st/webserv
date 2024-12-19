@@ -26,7 +26,7 @@ public:
     Socket(int domain, int type, int protocol, u_long interface, int port, int backlog);
 
     //desctruc
-    ~Socket();
+    //~Socket();
     //getters
     struct sockaddr_in get_address();
     int get_sock();

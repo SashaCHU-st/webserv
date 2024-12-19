@@ -16,7 +16,7 @@ private:
 public:
      WebServ(int domain, int type, int protocol, int port, u_long interface, int backlog);
     void accepter();
-    void responder();
+    void responder(int client_fd);
     void launch();
     std::vector<pollfd> *get_fds();
 };

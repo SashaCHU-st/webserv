@@ -17,7 +17,7 @@ void WebServ::accepter()
         perror("Failed");
         exit(EXIT_FAILURE);
     }
-            std::cout << "\033[34mAll good\033[0m" << std::endl;
+    std::cout << "\033[34mAll good\033[0m" << std::endl;
     // memset(buffer, 0, sizeof(buffer));
     // int reading = read(_new_socket, buffer, sizeof(buffer) - 1);
     // if (reading < 0)
@@ -25,6 +25,10 @@ void WebServ::accepter()
     //     perror("Failed");
     //     close(_new_socket);
     // }
+        struct pollfd client_poll;
+    client_poll.fd = _new_socket;
+    client_poll.events = POLLIN;
+    fds.push_back(client_poll);
 }
 
 // Prints the received request
@@ -39,7 +43,7 @@ std::vector<pollfd> *WebServ::get_fds()
 {
 	return &fds;
 }
-void WebServ::responder()
+void WebServ::responder(int client_fd)
 {
     std::string body;
     std::ifstream file("www/index1.html"); // Open the file
@@ -59,35 +63,63 @@ void WebServ::responder()
         std::to_string(body.size()) + "\r\n"
         "\r\n" +
         body;
-    int writing = write(_new_socket, http_response.c_str(), http_response.size());
+    int writing = write(client_fd, http_response.c_str(), http_response.size());
     if (writing < 0)
     {
         perror("Failed");
     }
-    close(_new_socket);
+    close(client_fd);
 }
 
-// Main server loop
+
 void WebServ::launch()
 {
+    struct pollfd server_poll;
+    server_poll.fd = get_sock()->get_sock();
+    server_poll.events = POLLIN;
+    fds.push_back(server_poll);
+
     while (true)
     {
-        std::cout << "\033[31mLet's start\033[0m" << std::endl;
-         struct pollfd creating_serv;
-        creating_serv.fd = sock;
-        creating_serv.events = POLLIN;
-        fds.push_back(creating_serv);
-        std::cout<<"4"<<std::endl;
-        int polling = poll(fds.data(), fds.size(),30 *1000);
-        std::cout<<"POLLL "<< polling<<std::endl; 
-        std::cout<<"5"<<std::endl; 
-        if(polling < 0)
+        // std::cout << "\033[31mPolling \033[0m" << std::endl;
+        // std::cout << "\033[31mSize \033[0m" << fds.size()<< std::endl;
+        int polling = poll(fds.data(), fds.size(), 30*1000);
+        if (polling < 0)
         {
-            perror("failed");
+            perror("Poll failed");
             exit(EXIT_FAILURE);
         }
-        accepter();
-        responder();
-        std::cout << "\033[32mVery good\033[0m" << std::endl;
+        for (size_t i = 0; i < fds.size(); ++i)
+        {
+            if (fds[i].revents & POLLIN)// if revent POLLIN =>then data is aval 
+            {
+        // std::cout << "\033[31mData  \033[0m" << fds.data()<< std::endl;
+                if (fds[i].fd == get_sock()->get_sock())/// if it is server's socket
+                {
+                    std::cout << "\033[34mIncoming \033[0m" << std::endl;
+                    accepter();// accpet new connection
+                } 
+                else// if clinet socket
+                {
+                    std::cout << "\033[31m1 \033[0m" << fds.data()<< std::endl;
+                    // responder();
+                     responder(fds[i].fd);// if it is client socket then send response
+                    close(fds[i].fd); // Закрываем соединение
+                    fds.erase(fds.begin() + i); // Удаляем из списка
+                    --i; // Корректируем индекс
+                }
+            }
+            else if (fds[i].revents & POLLHUP || fds[i].revents & POLLERR)/// if revnt is "hangup detected" or "err occured"
+            {
+                 std::cout << "\033[31m2  \033[0m" << fds.data()<< std::endl;
+                close(fds[i].fd);// close socket
+                fds.erase(fds.begin() + i);// deleted socket from array's 
+                --i;// delete index to contunue working with other sockets
+                std::cout << "\033[33mClient disconnected\033[0m" << std::endl;
+            }
+        }
+        // std::cout << "\033[32mReady for the next connection...\033[0m" << std::endl;
     }
 }
+
+
