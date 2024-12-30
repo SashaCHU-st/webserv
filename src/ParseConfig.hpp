@@ -13,6 +13,7 @@
 struct configServer {
 	std::string			server;
 	std::string			port;
+	std::string			ipAddress;
 	std::string			server_name;
 	std::vector<std::string> methods;
 	std::string			index = "index.html";
