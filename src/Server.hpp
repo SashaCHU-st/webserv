@@ -9,8 +9,8 @@ class Server
         virtual void responder(int client_fd) = 0;
     public:
         Server(int domain, int type, int protocol, int port, u_long interface, int backlog);
-       ~Server();
-        virtual void launch() = 0;
+        virtual ~Server();
+        virtual void launch(int nums) = 0;
         Socket * get_sock();
 
 }; 

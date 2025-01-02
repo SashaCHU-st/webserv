@@ -46,6 +46,7 @@ void Socket::set_conn(int conn)
 
 void Socket::socketing()
 {
+    int opt =1;
     sock = socket(domain, type, protocol); // AF_INET, SOCK_STREAM, 0 ( 0 default based on type if SOCK_STREAM => TCP)
                                          //SOK_DGRAM =>UDP
     if (sock < 0)
@@ -53,6 +54,8 @@ void Socket::socketing()
         perror("Failed");
         exit(EXIT_FAILURE);
     }
+    setsockopt(sock, SOL_SOCKET, SO_REUSEADDR,(const void*)&opt, sizeof(opt));
+    // option that do not need to wait when again run server
 }
 void Socket::binding()
 {
@@ -89,18 +92,5 @@ void Socket::run()
     std::cout<<"3"<<std::endl;
     listening();
 
-    // struct pollfd creating_serv;
-    // creating_serv.fd = sock;
-    // creating_serv.events = POLLIN;
-    // fds.push_back(creating_serv);
-    // std::cout<<"4"<<std::endl;
-    // int polling = poll(fds.data(), fds.size(),30 *1000);
-    //  std::cout<<"POLLL "<< polling<<std::endl; 
-    // std::cout<<"5"<<std::endl; 
-    // if(polling < 0)
-    // {
-    //     perror("failed");
-    //     exit(EXIT_FAILURE);
-    // }
 }
 
