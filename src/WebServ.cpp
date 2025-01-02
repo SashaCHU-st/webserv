@@ -147,7 +147,7 @@ void WebServ::launch(int nums)
                 {
                     if (fds[i].fd == servers[j]->get_sock()->get_sock())
                     {
-                        servers[j]->accepter(); // Accept a new connection
+                        servers[j]->accepter(); // Accept a new connection and creating _new_socket
                         pollfd client_poll;
                         client_poll.fd = servers[j]->_new_socket;
                         client_poll.events = POLLIN;
@@ -166,7 +166,8 @@ void WebServ::launch(int nums)
                     --i;
                 }
             }
-            if (fds[i].revents & (POLLHUP | POLLERR)) {
+            if (fds[i].revents & (POLLHUP | POLLERR))
+            {
                 std::cout << "POLLHUP or POLLERR detected on FD: " << fds[i].fd << std::endl;
                 close(fds[i].fd);
                 fds.erase(fds.begin() + i); 
