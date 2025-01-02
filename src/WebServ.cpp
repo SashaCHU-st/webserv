@@ -169,7 +169,7 @@ void WebServ::launch(int nums)
             if (fds[i].revents & (POLLHUP | POLLERR)) {
                 std::cout << "POLLHUP or POLLERR detected on FD: " << fds[i].fd << std::endl;
                 close(fds[i].fd);
-                fds.erase(fds.begin() + i);
+                fds.erase(fds.begin() + i); 
                 --i;
             }
         }
