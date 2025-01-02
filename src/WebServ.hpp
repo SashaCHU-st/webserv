@@ -1,9 +1,14 @@
 #pragma once
 
 #include "Server.hpp"
-#include <fstream>
+#include <fcntl.h>
+#include <stdexcept>
+#include <iostream>
 #include <sstream>
-#include <cstring>
+#include <fstream>
+#include <unistd.h>
+#include <vector>
+#include <poll.h>
 
 class WebServ : public Server
 {
@@ -18,5 +23,6 @@ public:
     void accepter();
     void responder(int client_fd);
     void launch(int nums);
+    void set_non_blocking(int sock_fd);
     std::vector<pollfd> *get_fds();
 };

@@ -1,22 +1,14 @@
 #include "Socket.hpp"
 
-// Constructor: Initializes socket details and creates the socket
 Socket::Socket(int domain, int type, int protocol, u_long interface, int port, int backlog)
     : domain(domain), type(type), protocol(protocol), backlog(backlog)
 {
-    // Initialize the address structure
-    address.sin_family = domain;          // AF_INET
-    address.sin_port = htons(port);       // Port 8083
-    address.sin_addr.s_addr = htonl(interface); // INADDR_ANY (0.0.0.0)
+    address.sin_family = domain;
+    address.sin_port = htons(port);
+    address.sin_addr.s_addr = htonl(interface);
 
     run();
-
 }
-
-// Socket::~Socket()
-// {
-//     delete fds;
-// }
 
 int Socket::get_conn()
 { 
@@ -60,7 +52,6 @@ void Socket::socketing()
 void Socket::binding()
 {
     int binding_from_server = bind(get_sock(), (struct sockaddr *)&address, sizeof(address));
-    std::cout<<"QQQQQQQQQQQ"<<std::endl;
     if(binding_from_server)
     {
         perror("failed");
@@ -85,12 +76,12 @@ void Socket::listening()
 
 void Socket::run()
 {
-    std::cout<<"1"<<std::endl;
     socketing();
-    std::cout<<"2"<<std::endl;
+    if (sock < 0)
+        exit(EXIT_FAILURE);
     binding();
-    std::cout<<"3"<<std::endl;
     listening();
-
 }
+
+
 

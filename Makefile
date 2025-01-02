@@ -7,6 +7,7 @@ SRCS = src/main.cpp \
 		src/WebServ.cpp \
 		src/Server.cpp \
 		src/Socket.cpp \
+		src/Signal.cpp \
 
 		
 	
