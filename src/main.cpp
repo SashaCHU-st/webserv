@@ -10,33 +10,67 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Launching.hpp"
-#include "ParseConfig.hpp"
+// #include "Launching.hpp"
+// #include "ParseConfig.hpp"
 
+// // int main(int argc, char **argv)
+// // {
+// // 	std::string configFile = "test.conf";
+
+// //     try {
+// // 		if (argc == 2)
+// // 		{
+// // 			ParseConfig::splitConfigElements(configFile);
+// // 		}
+// //     	Launching webserv;
+// //     }
+// //     catch(std::exception& e)
+// //     {
+// //         std::cout << e.what() << std::endl;
+// //         return 1;
+// //     }
+// //     return 0;
+// // }
 // int main(int argc, char **argv)
 // {
-// 	std::string configFile = "test.conf";
+// 	ParseConfig config;
+// 	if (argc == 2)
+// 	{
+// 		std::string	file = argv[1];
+// 		config.splitConfigElements(file);
+// 	}
+#include "WebServ.hpp"
+#include "Signal.hpp"
 
-//     try {
-// 		if (argc == 2)
-// 		{
-// 			ParseConfig::splitConfigElements(configFile);
-// 		}
-//     	Launching webserv;
-//     }
-//     catch(std::exception& e)
-//     {
-//         std::cout << e.what() << std::endl;
-//         return 1;
-//     }
-//     return 0;
+// void signalHandler(int signal) {
+//     std::cerr << "signal: " << signal << std::endl;
+//     exit(signal);
 // }
+
 int main(int argc, char **argv)
-{
-	ParseConfig config;
-	if (argc == 2)
-	{
-		std::string	file = argv[1];
-		config.splitConfigElements(file);
-	}
+{ 
+    // signal(SIGSEGV, signalHandler); // Seg  == 11
+    // signal(SIGINT, signalHandler); // Ctrl+C == 2
+    // signal(SIGTERM, signalHandler); // Termin
+    Signal sig;
+
+    (void)argv;
+    (void) argc;
+    try{
+        // if(argc != 2)
+        //     std::cout << "Accepting only one file config"<<std::endl;
+        int nums = 3;
+        int port = 4050;/////FOR NOW, PORT coming from config file
+        WebServ webserv(AF_INET, SOCK_STREAM,0 , port, INADDR_ANY, 32);
+        // (domain, type, protocol 0 => by default for SOCK_STREAM => TCP)
+        
+        webserv.launch(nums);
+
+    }
+    catch(std::exception& e)
+    {
+        std::cout << e.what() << std::endl;
+        return 1;
+    }
+    return 0;
 }

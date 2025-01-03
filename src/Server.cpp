@@ -1,12 +1,26 @@
 #include "Server.hpp"
-#include "Listen.hpp"
 
-Server::Server(int domain, int type, int protocol, int port,  u_long interface, int backlog )
+Server::Server(int domain, int type, int protocol, int port, u_long interface, int backlog)
 {
-    socket = new Listen(domain, type, protocol, port, interface, backlog);
-};
+    sock = new Socket(domain, type, protocol, interface, port, backlog);
 
-Listen * Server::get_socket()
+    if (!sock)
+        exit(EXIT_FAILURE);
+
+    if (sock->get_sock() < 0)
+        exit(EXIT_FAILURE);
+}
+
+
+
+Server::~Server()
 {
-    return socket;
-} 
+    delete sock;
+}
+
+Socket* Server::get_sock()
+{
+    if (sock == nullptr)
+        exit(EXIT_FAILURE);  // if socket is invalid
+    return sock;
+}

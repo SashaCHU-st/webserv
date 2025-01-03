@@ -1,3 +1,4 @@
+/// not yet ready for now!!!!!
 ///Function to conncet. From Client to server. Takes fd from socket, pointer to struct containing
 // IP address to BIND soket to, adrlen => the size of adress structure
 #include "Connecting_from_client.hpp"
@@ -7,6 +8,7 @@ Connecting_from_client::Connecting_from_client(int domain, int type, int protoco
     : Socket(domain, type, protocol, interface, port)
     {
     struct sockaddr_in address = get_address();
+    std::cout<<"EEEEEEEEEEEEEEEEEEEEEE"<<std::endl;
     int connection = connect(get_sock(), (struct sockaddr *)&address, sizeof(address));
     if(connection < 0)
      {

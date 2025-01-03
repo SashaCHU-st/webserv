@@ -4,14 +4,13 @@ CC = c++
 CFLAGS = -Wall -Wextra -Werror
 
 SRCS = src/main.cpp \
-		src/Binding_from_server.cpp \
-		src/Connecting_from_client.cpp \
-		src/Launching.cpp \
-		src/Listen.cpp \
+		src/WebServ.cpp \
 		src/Server.cpp \
 		src/Socket.cpp \
 		src/ParseConfig.cpp \
 		src/Utils.cpp
+		src/Signal.cpp \
+
 		
 	
 		 
