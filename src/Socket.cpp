@@ -3,9 +3,9 @@
 Socket::Socket(int domain, int type, int protocol, u_long interface, int port, int backlog)
     : domain(domain), type(type), protocol(protocol), backlog(backlog)
 {
-    address.sin_family = domain;
-    address.sin_port = htons(port);
-    address.sin_addr.s_addr = htonl(interface);
+    address.sin_family = domain;// AF_INET
+    address.sin_port = htons(port);// Port 4051
+    address.sin_addr.s_addr = htonl(interface); // INADDR_ANY (0.0.0.0)
 
     run();
 }
@@ -22,10 +22,6 @@ int Socket::get_sock()
 }
 
 
-// std::vector<pollfd> *Socket::get_fds()
-// {
-// 	return fds;
-// }
 struct sockaddr_in Socket::get_address()
 {
     return address;
@@ -67,6 +63,7 @@ void Socket::binding()
 void Socket::listening()
 {
     int listening_status = listen(sock, backlog); // backlog is the max number of pending connections
+    //listening incoming con  from client
     if (listening_status < 0)
     {
         perror("failed");

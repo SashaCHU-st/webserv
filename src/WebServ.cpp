@@ -1,12 +1,19 @@
 #include "WebServ.hpp"
 
-void WebServ::set_non_blocking(int sock_fd) {
-    int non_block = fcntl(sock_fd, F_GETFL, 0);
-    if (non_block < 0) {
+void WebServ::set_non_blocking(int sock_fd)
+{
+   // fcntl(int fd, int cmd, and othe diff arguments);
+    int non_block = fcntl(sock_fd, F_GETFL, 0);// checking the access to socket, 
+    // if it is < 0 then fcnl failed
+    if (non_block < 0)
+    {
         perror("fcntl get failed");
         exit(EXIT_FAILURE);
     }
-    if (fcntl(sock_fd, F_SETFL, non_block | O_NONBLOCK) < 0) {
+    if (fcntl(sock_fd, F_SETFL, non_block | O_NONBLOCK) < 0)// makes socket non blocking by
+    // O_NONBLOCK flag
+    // F_SETFL 
+    {
         perror("fcntl set non-blocking failed");
         exit(EXIT_FAILURE);
     }
@@ -29,6 +36,9 @@ void WebServ::accepter() {
     struct sockaddr_in address = socket->get_address();
     socklen_t adrlen = sizeof(address);
     _new_socket = accept(sock_fd, (struct sockaddr*)&address, &adrlen);
+    // listen socket to accept incom conn req from CLIENT
+    // creates newsocket and return a fd for new socket
+    // the original "big socket" will remain open and contuue listen for new incomes
 
     if (_new_socket < 0)
     {
@@ -42,12 +52,6 @@ void WebServ::accepter() {
     set_non_blocking(_new_socket); // new sockecke to non blocking
     std::cout << "Connection accepted, FD: " << _new_socket << std::endl;
 
-    // struct pollfd client_poll;
-    // client_poll.fd = _new_socket;
-    // client_poll.events = POLLIN;
-    // fds.push_back(client_poll);
-
-    // std::cout << "New client FD added to poll: " << _new_socket << std::endl;
 }
 
 
@@ -129,13 +133,13 @@ void WebServ::launch(int nums)
 /////POLL loop
     while (true)
     {
-        int polling_result = poll(fds.data(), fds.size(), -1);
+        int polling_result = poll(fds.data(), fds.size(), -1);// -1 no timeout for now
 
         if (polling_result < 0) {
             perror("Poll failed");
             exit(EXIT_FAILURE);
         }
-        std::cout << "Active FDs: " << polling_result << std::endl;/// n ot need later
+        std::cout << "Active FDs: " << polling_result << std::endl;/// not need later
 
         for (size_t i = 0; i < fds.size(); ++i)
         {
@@ -159,7 +163,7 @@ void WebServ::launch(int nums)
                 }
                 // Client socket: Respond to the client
                 if (!is_server_socket) {
-                    std::cout << "Client FD: " << fds[i].fd << " - Calling responder()" << std::endl;
+              //      std::cout << "Client FD: " << fds[i].fd << " - Calling responder()" << std::endl;
                     responder(fds[i].fd);
                     close(fds[i].fd);
                     fds.erase(fds.begin() + i);

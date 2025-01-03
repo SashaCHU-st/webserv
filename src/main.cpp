@@ -21,6 +21,7 @@ int main(int argc, char **argv)
         int nums = 3;
         int port = 4050;/////FOR NOW, PORT coming from config file
         WebServ webserv(AF_INET, SOCK_STREAM,0 , port, INADDR_ANY, 32);
+        // (domain, type, protocol 0 => by default for SOCK_STREAM => TCP)
         
         webserv.launch(nums);
 
