@@ -98,3 +98,7 @@ void ParseConfig::splitConfigElements(const std::string configFile)
 // 	std::string	file = arv[1];
 // 	config.splitConfigElements(file);
 // }
+std::map<std::string, std::vector<configServer>>  ParseConfig::server_getter()
+{
+	return (ParseConfig::_serverConfig);
+}

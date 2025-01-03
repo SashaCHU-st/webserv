@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Server.hpp"
+#include "ParseConfig.hpp"
 #include <fcntl.h>
 #include <stdexcept>
 #include <iostream>

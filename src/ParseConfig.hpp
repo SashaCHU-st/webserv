@@ -30,6 +30,7 @@ class ParseConfig {
 		~ParseConfig();
 		// std::map<std::string, std::string> configElements(std::vector<std::string> fromSplit);
 		void splitConfigElements(const std::string configFile);
+		std::map<std::string, std::vector<configServer>> server_getter();
 };
 
 

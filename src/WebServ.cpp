@@ -1,5 +1,6 @@
 #include "WebServ.hpp"
 
+
 void WebServ::set_non_blocking(int sock_fd)
 {
    // fcntl(int fd, int cmd, and othe diff arguments);
@@ -116,10 +117,16 @@ void WebServ::launch(int nums)
     std::vector<pollfd> fds;
     std::vector<WebServ*> servers;
 
+    ParseConfig config;
     // Creating mult servers for now 3, as set in main
     for (int i = 0; i < nums; ++i)
     {
-        int port = 4051 + i;
+        // int port = 4051 + i;
+        std::map<std::string, std::vector<configServer>> servers_ = config.server_getter();/////FOR NOW, PORT coming from config file
+        std::vector<configServer> server_list = servers_[0];
+        configServer server1 = server_list[0];
+        std::string port_string = server1.port;
+        int port = stoi(port_string);
         WebServ* server = new WebServ(AF_INET, SOCK_STREAM, 0, port, INADDR_ANY, 32);
         servers.push_back(server);
 

@@ -8,7 +8,7 @@ SRCS = src/main.cpp \
 		src/Server.cpp \
 		src/Socket.cpp \
 		src/ParseConfig.cpp \
-		src/Utils.cpp
+		src/Utils.cpp \
 		src/Signal.cpp \
 
 		

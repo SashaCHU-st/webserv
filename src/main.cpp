@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 // #include "Launching.hpp"
-// #include "ParseConfig.hpp"
 
 // // int main(int argc, char **argv)
 // // {
@@ -41,6 +40,7 @@
 // 	}
 #include "WebServ.hpp"
 #include "Signal.hpp"
+#include "ParseConfig.hpp"
 
 // void signalHandler(int signal) {
 //     std::cerr << "signal: " << signal << std::endl;
@@ -57,10 +57,29 @@ int main(int argc, char **argv)
     (void)argv;
     (void) argc;
     try{
-        // if(argc != 2)
-        //     std::cout << "Accepting only one file config"<<std::endl;
+     ParseConfig config;
+        if(argc != 2)
+        {
+
+            std::cout << "Accepting only one file config"<<std::endl;
+            return(1);
+        } 
+            
+            
+         std::string	file = argv[1];
+        config.splitConfigElements(file);
+        std::cout<< "All good" <<std::endl;
         int nums = 3;
-        int port = 4050;/////FOR NOW, PORT coming from config file
+        std::map<std::string, std::vector<configServer>> servers = config.server_getter();/////FOR NOW, PORT coming from config file
+         std::cout<< "2" <<std::endl;
+        std::vector<configServer> server_list = servers[0];
+         std::cout<< "3" <<std::endl;
+        configServer server1 = server_list[0];
+         std::cout<< "4" <<std::endl;
+        std::string port_string = server1.port;
+         std::cout<< "5" <<std::endl;
+        int port = stoi(port_string);
+         std::cout<< "6" <<std::endl;
         WebServ webserv(AF_INET, SOCK_STREAM,0 , port, INADDR_ANY, 32);
         // (domain, type, protocol 0 => by default for SOCK_STREAM => TCP)
         
