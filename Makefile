@@ -10,7 +10,8 @@ SRCS = src/main.cpp \
 		src/Listen.cpp \
 		src/Server.cpp \
 		src/Socket.cpp \
-
+		src/ParseConfig.cpp \
+		src/Utils.cpp
 		
 	
 		 
